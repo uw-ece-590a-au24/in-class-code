@@ -63,7 +63,7 @@ class TreeNode:
     def remove_from_bst(self):
         if not self.left_child and not self.right_child:
             ## No children
-            if self.parent.payload < self.payload:
+            if self.parent.payload <= self.payload: ## <--- This is what we missed in class!
                 self.parent.setRightChild(None)
             else:
                 self.parent.setLeftChild(None)
@@ -80,26 +80,11 @@ class TreeNode:
         ## If we have 2 children
         replacement = self.right_child.find_smallest_child()
         self.payload = replacement.payload
-        if not replacement.left_child and not replacement.right_child:
-            ## NO children; remove successor from parent
-            replacement.remove_from_bst()
-        if replacement.right_child:
-            replacement.payload = replacement.right_child.payload
-            replacement.right_child = None
+        print("Left child: " + str(self.left_child))
+        print("Right child: " + str(self.right_child))
+        replacement.remove_from_bst()
 
 
-
-    # ## Assume
-    # def choose_successor(self):
-    #     if self.right_child:
-    #         ### Find the smallest of the right child
-    #         ## This is our "in-order successor"
-    #         return self.right_child.find_smallest_child()
-    #         pass
-    #     else:
-    #         ## Find the largest of the left child
-    #
-    #         pass
 
     def find_smallest_child(self):
         ## Return node that holds smallest child of this node
